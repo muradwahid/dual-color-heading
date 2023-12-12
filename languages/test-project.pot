@@ -1,0 +1,135 @@
+# Copyright (C) 2023 bPlugins LLC
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: Dual Color Heading 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dual-color-heading\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-12-12T06:31:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: dual-color-heading\n"
+
+#. Plugin Name of the plugin
+msgid "Dual Color Heading"
+msgstr ""
+
+#. Description of the plugin
+msgid "Description of the Dual Color Heading."
+msgstr ""
+
+#. Author of the plugin
+msgid "bPlugins LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://bplugins.com"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:13824
+msgid "Content Settings"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:13844
+msgid "Show Icon"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:13852
+msgid "Show Separator"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:13890
+msgid "Title (First Part)"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:13897
+msgid "Title (Last Part)"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:247
+#: dist/editor.js:13967
+#: dist/editor.js:24574
+msgid "Separator"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24152
+msgid "Dual Heading Style"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24440
+msgid "Icon Style"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24443
+#: dist/editor.js:24783
+msgid "Icon Size"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24464
+msgid "Typography"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24472
+msgid "Main Color"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24502
+msgid "Solid Color"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24515
+msgid "Gradient Color"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24550
+msgid "Color"
+msgstr ""
+
+#: dist/editor.js:247
+#: dist/editor.js:24722
+#: dist/editor.js:24751
+msgid "Border Radius"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block title"
+msgid "Dual Color Heading"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block description"
+msgid "Description of Dual Color Heading."
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "dual"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "color"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "heading"
+msgstr ""
