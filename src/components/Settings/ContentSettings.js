@@ -7,19 +7,17 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { Fragment } from 'react';
+import { SortableControl } from '../../../../Components';
+import svgIcon from '../../../assets/icons/christmas-star-icon.svg';
+import oktaIconSvg from '../../../assets/icons/okta-icon.svg';
 import { htmlTags } from '../../utils/options';
 import Alignment from '../Panel/Alignment/Alignment';
+import Device from '../Panel/Device/Device';
 import MediaArea from '../Panel/MediaArea/MediaArea';
 import TinyEditor from '../Panel/TinyEditor/TinyEditor';
-import Device from '../Panel/Device/Device';
-import svgIcon from '../../../assets/icons/christmas-star-icon.svg'
-import oktaIconSvg from '../../../assets/icons/okta-icon.svg';
-import { SortableControl } from '../../../../Components';
-import { produce } from 'immer';
 const ContentSettings = ({ attributes, setAttributes }) => {
   const {
     sortElements,
-    content,
     heading,
     icon,
     separator,
@@ -71,7 +69,7 @@ const ContentSettings = ({ attributes, setAttributes }) => {
             marginTop: '10px',
           }}
         >
-          {content.showIcon && (
+          {icon.show&& (
             <Fragment>
               <p>Icon</p>
               <MediaArea

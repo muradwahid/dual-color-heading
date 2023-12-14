@@ -243,7 +243,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               units={__('px', 'em', '%')}
             />
           )}
-          {content.borderDevice === 'mobile' && (
+          {borderDevice === 'mobile' && (
             <BoxControl
               label="Border Width"
               values={border.mobile}
@@ -283,7 +283,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           onChange={(value) => setAttributes({ shadow: value })}
         />
       </PanelBody>
-      {content.showIcon && (
+      {icon.show && (
         <PanelBody
           initialOpen={false}
           title={__('Icon Style', 'dual-color-heading')}
@@ -563,7 +563,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               <>
                 <BoxControl
                   label={__('Border Radius', 'dual-color-heading')}
-                  values={content.separator.radiusRight}
+                  values={separator.right.bRadius}
                   resetValues={borderRadiusResetValues}
                   onChange={(value) =>
                     setAttributes({
@@ -590,45 +590,36 @@ const StyleSettings = ({ attributes, setAttributes }) => {
             )}
           </Fragment>
         )}
-        {content.separatorType === 'icon' && (
+        {separator.type === 'icon' && (
           <Fragment>
             <RangeControl
-              value={content.separator.iconSize}
+              value={separator.iconSize}
               label={__('Icon Size', 'dual-color-heading')}
               min={0}
               max={300}
               step={1}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    separator: { ...content.separator, iconSize: value },
-                  },
+                  separator: { ...separator, iconSize: value },
                 })
               }
             />
             <PanelColorPicker
               label="Icon Color"
-              color={content.separator.iconColor}
-              value={content.separator.iconColor}
+              color={separator.iconColor}
+              value={separator.iconColor}
               renderFunction={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    separator: { ...content.separator, iconColor: value },
-                  },
+                  separator: { ...separator, iconColor: value },
                 })
               }
             />
             <span>Alignment</span>
             <Alignment
-              value={content.separator.alignment}
+              value={separator.alignment}
               render={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    separator: { ...content.separator, alignment: value },
-                  },
+                  separator: { ...separator, alignment: value },
                 })
               }
             />
@@ -636,13 +627,10 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               <BoxControl
                 label="Margin"
                 resetValues={marginResetValues}
-                values={content.separator.margin}
+                values={separator.margin}
                 onChange={(value) =>
                   setAttributes({
-                    content: {
-                      ...content,
-                      separator: { ...content.separator, margin: value },
-                    },
+                    separator: { ...separator, margin: value },
                   })
                 }
               />

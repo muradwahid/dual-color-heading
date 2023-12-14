@@ -5,7 +5,7 @@ import oktaIconSvg from '../../../assets/icons/okta-icon.svg';
 import DynamicTag from '../../components/Panel/DynamicTag/DynamicTag';
 import Style from '../../components/Style/Style';
 const DualColorHeading = ({ attributes }) => {
-  const { sortElements, content, heading, icon, separator, subHeading } =
+  const { sortElements, heading, icon, separator, subHeading } =
     attributes;
   return (
     <Fragment>

@@ -17,12 +17,13 @@ const Style = ({ attributes }) => {
     icon,
     subHeading,
     separator,
+    subTitle,
   } = attributes;
   return (
     <style>
       {`
-      ${getTypoCSS('', content.title.typhography)?.googleFontLink}
-      ${getTypoCSS('', content.title.typhography)?.googleFontLink}
+      ${getTypoCSS('', heading.typhography)?.googleFontLink}
+      ${getTypoCSS('', subHeading.typhography)?.googleFontLink}
       
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container{
         display:grid;
