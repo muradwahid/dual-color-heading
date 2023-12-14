@@ -1,31 +1,48 @@
 import React from 'react';
-import { getTypoCSS } from '../../../../Components/utils/getCSS';
+import {
+  getBackgroundCSS,
+  getTypoCSS,
+} from '../../../../Components/utils/getCSS';
 const Style = ({ attributes }) => {
-  const { content,cId } = attributes;
-  const { alignment, borderWidth,separator } = content;
+  const {
+    content,
+    cId,
+    heading,
+    alignment,
+    background,
+    padding,
+    margin,
+    border,
+    shadow,
+    icon,
+    subHeading,
+    separator,
+  } = attributes;
   return (
     <style>
       {`
       ${getTypoCSS('', content.title.typhography)?.googleFontLink}
+      ${getTypoCSS('', content.title.typhography)?.googleFontLink}
+      
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container{
         display:grid;
-        background:${content.bgColor};
-        padding-top:${content.padding.desktop.top};
-        padding-bottom:${content.padding.desktop.bottom};
-        padding-left:${content.padding.desktop.left};
-        padding-right:${content.padding.desktop.right};
-        margin-top:${content.margin.desktop.top};
-        margin-bottom:${content.margin.desktop.bottom};
-        margin-left:${content.margin.desktop.left};
-        margin-right:${content.margin.desktop.right};
-        border-top-width:${borderWidth.desktop.top};
-        border-bottom-width:${borderWidth.desktop.bottom};
-        border-left-width:${borderWidth.desktop.left};
-        border-right-width:${borderWidth.desktop.right};
-        border-style:${content.border};
-        border-color:${content.borderColor};
-        border-radius:${content.borderRadius}px;
-        box-shadow:${content.shadow};
+        ${getBackgroundCSS(background)}
+        padding-top:${padding.desktop.top};
+        padding-bottom:${padding.desktop.bottom};
+        padding-left:${padding.desktop.left};
+        padding-right:${padding.desktop.right};
+        margin-top:${margin.desktop.top};
+        margin-bottom:${margin.desktop.bottom};
+        margin-left:${margin.desktop.left};
+        margin-right:${margin.desktop.right};
+        border-top-width:${border.desktop.top};
+        border-bottom-width:${border.desktop.bottom};
+        border-left-width:${border.desktop.left};
+        border-right-width:${border.desktop.right};
+        border-style:${border.type};
+        border-color:${border.color};
+        border-radius:${border.radius}px;
+        box-shadow:${shadow};
         justify-items:${
           alignment.desktop === 'center'
             ? 'center'
@@ -35,12 +52,12 @@ const Style = ({ attributes }) => {
         };
       }
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-title{
-        color:${content.title.mainColor};
+        color:${heading.last.color};
       }
       ${
         getTypoCSS(
-          '.bpdch-dual-color-container>.bpdch-dual-color-title',
-          content.title.typhography
+          '#bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-title',
+          heading.typography
         ).styles
       }
       #bpdch-dual-color-heading-${cId} .bpdch-separator-wrapper{
@@ -57,22 +74,22 @@ const Style = ({ attributes }) => {
         };
       }
       #bpdch-dual-color-heading-${cId} .bpdch-separator-one{
-        height:${separator.heightLeft};
-        width:${separator.widthLeft};
-        border-radius:${separator.radiusLeft.top} ${
-        separator.radiusLeft.left
-      } ${separator.radiusLeft.bottom} ${separator.radiusLeft.right};
-        margin-right:${separator.separatorDistance};
-        background:${separator.firstColor};
+        height:${separator.left.height};
+        width:${separator.left.width};
+        border-radius:${separator.left.bRadius?.top} ${
+        separator.left.bRadius?.left
+      } ${separator.left?.bRadius.bottom} ${separator.left.bRadius?.right};
+        margin-right:${separator.distance};
+        background:${separator.left.color};
       }
       #bpdch-dual-color-heading-${cId} .bpdch-separator-two{
-        height:${separator.heightRight};
-        width:${separator.widthRight};
-        border-radius:${separator.radiusRight.top} ${
-        separator.radiusRight.left
-      } ${separator.radiusRight.bottom} ${separator.radiusRight.right};
-        margin-left:${separator.separatorDistance};
-        background:${separator.secondColor};
+        height:${separator.right.height};
+        width:${separator.right.width};
+        border-radius:${separator.right.bRadius?.top} ${
+        separator.right.bRadius?.left
+      } ${separator.right.bRadius?.bottom} ${separator.right.bRadius?.right};
+        margin-left:${separator.distance};
+        background:${separator.right.color};
       }
       #bpdch-dual-color-heading-${cId} .bpdch-separator-wrapper svg{
         color:${separator.iconColor};
@@ -81,13 +98,13 @@ const Style = ({ attributes }) => {
         fill:${separator.iconColor};
       }
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-icon-svg{
-        color:${content.iconColor};
+        color:${icon.color};
       }
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-icon-svg path{
-        fill:${content.iconColor};
+        fill:${icon.color};
       }
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-subcontent{
-        color:${content.subTitle.color} !important;
+        color:${subHeading.color} !important;
         display:grid;
         justify-items:${
           alignment.desktop === 'center'
@@ -100,17 +117,15 @@ const Style = ({ attributes }) => {
       ${
         getTypoCSS(
           '.bpdch-dual-color-container>.bpdch-dual-color-subcontent',
-          content.subTitle.typhography
+          subHeading.typography
         ).styles
       }
       #bpdch-dual-color-heading-${cId} .bpdch-dual-color-title-first{
-        color:${
-          content.title.dualColor === 'solid' && content.title.solidColor
-        };
+        color:${heading.colorType === 'solid' && heading.first.color};
         ${
-          content.title.dualColor === 'gradient'
+          heading.colorType === 'gradient'
             ? `
-        background:${content.title.gradientColor};
+        background:${heading.first.gradient};
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;  
         `

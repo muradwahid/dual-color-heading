@@ -1,5 +1,7 @@
 import { InspectorControls } from '@wordpress/block-editor';
+import { produce } from 'immer';
 import { useEffect, useState } from 'react';
+
 import TabPanel from './components/Panel/TabPanel/TabPanel';
 import ContentSettings from './components/Settings/ContentSettings';
 import StyleSettings from './components/Settings/StyleSettings';
@@ -11,6 +13,9 @@ const Edit = (props) => {
   useEffect(() => {
     clientId && setAttributes({ cId: clientId.substring(0, 10) });
   }, [clientId]); // Set & Update clientId to cId
+
+
+
   return (
     <div className={className} id={`bpdch-dual-color-heading-${cId}`}>
       <InspectorControls>

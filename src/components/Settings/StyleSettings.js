@@ -7,8 +7,8 @@ import {
   __experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { Fragment } from 'react';
-import { Typography } from '../../../../Components';
+import { Fragment, useState } from 'react';
+import { Background, Typography } from '../../../../Components';
 import {
   borderRadiusResetValues,
   dualColorOptions,
@@ -22,21 +22,33 @@ import PanelCustomColorControl from '../Panel/PanelCustomColorControl/PanelCusto
 import PanelGradientPicker from '../Panel/PanelGradientPicker/PanelGradientPicker';
 import PanelShadow from '../Panel/PanelShadow/PanelShadow';
 const StyleSettings = ({ attributes, setAttributes }) => {
-  const { content } = attributes;
+  const {
+    content,
+    background,
+    padding,
+    margin,
+    border,
+    shadow,
+    icon,
+    heading,
+    subHeading,
+    separator,
+  } = attributes;
+  const [paddingDevice, setPaddingDevice] = useState('desktop');
+  const [marginDevice, setMarginDevice] = useState('desktop');
+  const [borderDevice, setBorderDevice] = useState('desktop');
+  const [changeTab, setChangeTab] = useState('Left Line');
   return (
     <Fragment>
       <PanelBody
         initialOpen={true}
         title={__('Dual Heading Style', 'dual-color-heading')}
       >
-        <PanelCustomColorControl
-          label="Background Color"
-          value={content.bgColor}
-          onChange={(value) =>
-            setAttributes({ content: { ...content, bgColor: value } })
-          }
+        <Background
+          label={__('Background', 'dual-color-heading')}
+          value={background}
+          onChange={(val) => setAttributes({ background: val })}
         />
-
         <div
           style={{
             marginTop: '20px',
@@ -44,16 +56,15 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }}
         >
           <Device
-            device={content.paddingDevice}
+            device={paddingDevice}
             style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) =>
-              setAttributes({ content: { ...content, paddingDevice: value } })
-            }
+            onChange={(value) => setPaddingDevice(value)}
           />
-          {content.paddingDevice === 'desktop' && (
+
+          {paddingDevice === 'desktop' && (
             <BoxControl
               label="Padding"
-              values={content.padding.desktop}
+              values={padding.desktop}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -62,19 +73,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    padding: { ...content.padding, desktop: value },
-                  },
+                  padding: { ...padding, desktop: value },
                 })
               }
               units={__('px', 'em', '%')}
             />
           )}
-          {content.paddingDevice === 'tablet' && (
+          {paddingDevice === 'tablet' && (
             <BoxControl
               label="Padding"
-              values={content.padding.tablet}
+              values={padding.tablet}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -83,19 +91,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    padding: { ...content.padding, tablet: value },
-                  },
+                  padding: { ...padding, tablet: value },
                 })
               }
               units={__('px', 'em', '%')}
             />
           )}
-          {content.paddingDevice === 'mobile' && (
+          {paddingDevice === 'mobile' && (
             <BoxControl
               label="Padding"
-              values={content.padding.mobile}
+              values={padding.mobile}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -104,10 +109,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    padding: { ...content.padding, mobile: value },
-                  },
+                  padding: { ...padding, mobile: value },
                 })
               }
               units={__('px', 'em', '%')}
@@ -121,16 +123,14 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }}
         >
           <Device
-            device={content.marginDevice}
+            device={marginDevice}
             style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) =>
-              setAttributes({ content: { ...content, marginDevice: value } })
-            }
+            onChange={(value) => setMarginDevice(value)}
           />
-          {content.marginDevice === 'desktop' && (
+          {marginDevice === 'desktop' && (
             <BoxControl
               label="Margin"
-              values={content.margin.desktop}
+              values={margin?.desktop}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -139,19 +139,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    margin: { ...content.margin, desktop: value },
-                  },
+                  margin: { ...margin, desktop: value },
                 })
               }
               units={__('px', 'em', '%')}
             />
           )}
-          {content.marginDevice === 'tablet' && (
+          {marginDevice === 'tablet' && (
             <BoxControl
               label="Margin"
-              values={content.margin.tablet}
+              values={margin.tablet}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -160,19 +157,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    margin: { ...content.margin, tablet: value },
-                  },
+                  margin: { ...margin, tablet: value },
                 })
               }
               units={__('px', 'em', '%')}
             />
           )}
-          {content.marginDevice === 'mobile' && (
+          {marginDevice === 'mobile' && (
             <BoxControl
               label="Margin"
-              values={content.margin.mobile}
+              values={margin.mobile}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -181,10 +175,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               }}
               onChange={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    margin: { ...content.margin, mobile: value },
-                  },
+                  margin: { ...margin, mobile: value },
                 })
               }
               units={__('px', 'em', '%')}
@@ -192,10 +183,9 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           )}
         </div>
         <PanelRow>
-          <span>Border Type</span>
+          <span style={{ marginBottom: '10px' }}>Border Type</span>
           <SelectControl
-            className="bpdch-custom-style"
-            value={content.border}
+            value={border.type}
             options={[
               { label: 'Default', value: 'default' },
               { label: 'None', value: 'none' },
@@ -206,7 +196,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               { label: 'Groove', value: 'groove' },
             ]}
             onChange={(value) =>
-              setAttributes({ content: { ...content, border: value } })
+              setAttributes({ border: { ...border, type: value } })
             }
           />
         </PanelRow>
@@ -217,16 +207,14 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }}
         >
           <Device
-            device={content.borderDevice}
+            device={borderDevice}
             style={{ position: 'absolute', left: '90px', top: '-3px' }}
-            onChange={(value) =>
-              setAttributes({ content: { ...content, borderDevice: value } })
-            }
+            onChange={(value) => setBorderDevice(value)}
           />
-          {content.borderDevice === 'desktop' && (
+          {borderDevice === 'desktop' && (
             <BoxControl
               label="Border Width"
-              values={content.borderWidth.desktop}
+              values={border.desktop}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -234,20 +222,15 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                 bottom: '0px',
               }}
               onChange={(value) =>
-                setAttributes({
-                  content: {
-                    ...content,
-                    borderWidth: { ...content.borderWidth, desktop: value },
-                  },
-                })
+                setAttributes({ border: { ...border, desktop: value } })
               }
               units={__('px', 'em', '%')}
             />
           )}
-          {content.borderDevice === 'tablet' && (
+          {borderDevice === 'tablet' && (
             <BoxControl
               label="Border Width"
-              values={content.borderWidth.tablet}
+              values={border.tablet}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -255,12 +238,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                 bottom: '0px',
               }}
               onChange={(value) =>
-                setAttributes({
-                  content: {
-                    ...content,
-                    borderWidth: { ...content.borderWidth, tablet: value },
-                  },
-                })
+                setAttributes({ border: { ...border, tablet: value } })
               }
               units={__('px', 'em', '%')}
             />
@@ -268,7 +246,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           {content.borderDevice === 'mobile' && (
             <BoxControl
               label="Border Width"
-              values={content.borderWidth.mobile}
+              values={border.mobile}
               resetValues={{
                 left: '0px',
                 right: '0px',
@@ -276,40 +254,33 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                 bottom: '0px',
               }}
               onChange={(value) =>
-                setAttributes({
-                  content: {
-                    ...content,
-                    borderWidth: { ...content.borderWidth, mobile: value },
-                  },
-                })
+                setAttributes({ border: { ...border, mobile: value } })
               }
               units={__('px', 'em', '%')}
             />
           )}
         </div>
         <PanelColorPicker
-          color={content.borderColor}
+          color={border.color}
           label="Border Color"
-          value={content.borderColor}
+          value={border.color}
           renderFunction={(value) =>
-            setAttributes({ content: { ...content, borderColor: value } })
+            setAttributes({ border: { ...border, color: value } })
           }
         />
         <div style={{ marginTop: '10px' }}>
           <RangeControl
             label="Border Radius"
-            value={content.borderRadius}
+            value={border.radius}
             onChange={(value) =>
-              setAttributes({ content: { ...content, borderRadius: value } })
+              setAttributes({ border: { ...border, radius: value } })
             }
           />
         </div>
         <PanelShadow
           label="Box Shadow"
-          value={content.shadow}
-          onChange={(value) =>
-            setAttributes({ content: { ...content, shadow: value } })
-          }
+          value={shadow}
+          onChange={(value) => setAttributes({ shadow: value })}
         />
       </PanelBody>
       {content.showIcon && (
@@ -319,19 +290,19 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         >
           <RangeControl
             label={__('Icon Size', 'dual-color-heading')}
-            value={content.iconSize}
+            value={icon.size}
             min={10}
             max={550}
             onChange={(value) =>
-              setAttributes({ content: { ...content, iconSize: value } })
+              setAttributes({ icon: { ...icon, size: value } })
             }
           />
           <PanelColorPicker
             label="Icon Color"
-            color={content.iconColor}
-            value={content.iconColor}
+            color={icon.color}
+            value={icon.color}
             renderFunction={(value) =>
-              setAttributes({ content: { ...content, iconColor: value } })
+              setAttributes({ icon: { ...icon, color: value } })
             }
           />
         </PanelBody>
@@ -345,14 +316,14 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           <strong>Title Style</strong>
         </div>
         <PanelColorPicker
-          color={content.title.mainColor}
-          value={content.title.mainColor}
+          color={heading.last.color}
+          value={heading.last.color}
           label={__('Main Color', 'dual-color-heading')}
           renderFunction={(value) =>
             setAttributes({
-              content: {
-                ...content,
-                title: { ...content.title, mainColor: value },
+              heading: {
+                ...heading,
+                last: { ...heading.last, color: value },
               },
             })
           }
@@ -360,56 +331,52 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         <PanelRow>
           <span>Dual Color</span>
           <SelectControl
-            className="bpdch-custom-style"
-            value={content.title.dualColor}
+            value={heading.colorType}
             options={dualColorOptions}
             onChange={(value) =>
               setAttributes({
-                content: {
-                  ...content,
-                  title: { ...content.title, dualColor: value },
+                heading: {
+                  ...heading,
+                  colorType: value,
                 },
               })
             }
           />
         </PanelRow>
-        {content.title.dualColor === 'solid' && (
+        {heading.colorType === 'solid' && (
           <PanelColorPicker
-            color={content.title.solidColor}
-            value={content.title.solidColor}
+            color={heading.first.color}
+            value={heading.first.color}
             label={__('Solid Color', 'dual-color-heading')}
             renderFunction={(value) =>
               setAttributes({
-                content: {
-                  ...content,
-                  title: { ...content.title, solidColor: value },
+                heading: {
+                  ...heading,
+                  first: { ...heading.first, color: value },
                 },
               })
             }
           />
         )}
-        {content.title.dualColor === 'gradient' && (
+        {heading.colorType === 'gradient' && (
           <PanelGradientPicker
             label={__('Gradient Color', 'dual-color-heading')}
-            value={content.title.gradientColor}
+            value={heading.first.gradient}
             onChange={(value) =>
               setAttributes({
-                content: {
-                  ...content,
-                  title: { ...content.title, gradientColor: value },
+                heading: {
+                  ...heading,
+                  first: { ...heading.first, gradient: value },
                 },
               })
             }
           />
         )}
         <Typography
-          value={content.title.typhography}
+          value={heading.typography}
           onChange={(value) =>
             setAttributes({
-              content: {
-                ...content,
-                title: { ...content.title, typhography: value },
-              },
+              heading: { ...heading, typography: value },
             })
           }
         />
@@ -423,26 +390,18 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           <strong>Sub-title Style</strong>
         </div>
         <PanelColorPicker
-          color={content.subTitle.color}
-          value={content.subTitle.color}
+          color={subHeading.color}
+          value={subHeading.color}
           label={__('Color', 'dual-color-heading')}
           renderFunction={(value) =>
-            setAttributes({
-              content: {
-                ...content,
-                subTitle: { ...content.subTitle, color: value },
-              },
-            })
+            setAttributes({ subHeading: { ...subHeading, color: value } })
           }
         />
         <Typography
-          value={content.subTitle.typhography}
+          value={subHeading.typography}
           onChange={(value) =>
             setAttributes({
-              content: {
-                ...content,
-                subTitle: { ...content.subTitle, typhography: value },
-              },
+              subHeading: { ...subHeading, typography: value },
             })
           }
         />
@@ -451,38 +410,30 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         initialOpen={false}
         title={__('Separator', 'dual-color-heading')}
       >
-        {content.separatorType === 'line' && (
+        {separator.type === 'line' && (
           <Fragment>
             <span>Alignment</span>
             <Alignment
-              value={content.separator.alignment}
+              value={separator.alignment}
               render={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    separator: { ...content.separator, alignment: value },
-                  },
+                  separator: { ...separator, alignment: value },
                 })
               }
             />
             <PanelRow>
-              <span>Distance Between Lines</span>
+              <span style={{ marginBottom: '10px' }}>
+                Distance Between Lines
+              </span>
               <UnitControl
-                className="bpdch-custom-style"
                 style={{ width: '90px' }}
                 min={0}
                 max={1000}
                 step={5}
-                value={content.separator.separatorDistance}
+                value={separator.distance}
                 onChange={(value) =>
                   setAttributes({
-                    content: {
-                      ...content,
-                      separator: {
-                        ...content.separator,
-                        separatorDistance: value,
-                      },
-                    },
+                    separator: { ...separator, distance: value },
                   })
                 }
               />
@@ -491,63 +442,50 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               <BoxControl
                 label="Margin"
                 resetValues={marginResetValues}
-                values={content.separator.margin}
+                values={separator.margin}
                 onChange={(value) =>
                   setAttributes({
-                    content: {
-                      ...content,
-                      separator: { ...content.separator, margin: value },
-                    },
+                    separator: { ...separator, margin: value },
                   })
                 }
               />
             </div>
             <IncludeExClude
               options={['Left Line', 'Right Line']}
-              value={content.separator.widthOption}
-              renderFunction={(value) =>
-                setAttributes({
-                  content: {
-                    ...content,
-                    separator: { ...content.separator, widthOption: value },
-                  },
-                })
-              }
+              value={changeTab}
+              renderFunction={(value) => setChangeTab(value)}
             />
-
             <PanelRow>
               <span>Width</span>
-              {content.separator.widthOption === 'Left Line' && (
+              {changeTab === 'Left Line' && (
                 <UnitControl
-                  className="bpdch-custom-style"
                   style={{ width: '90px' }}
                   min={0}
-                  max={content.separator.widthLeft.includes('%') ? 100 : 1000}
+                  max={separator.left.width.includes('%') ? 100 : 1000}
                   step={1}
-                  value={content.separator.widthLeft}
+                  value={separator.left.width}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, widthLeft: value },
+                      separator: {
+                        ...separator,
+                        left: { ...separator.left, width: value },
                       },
                     })
                   }
                 />
               )}
-              {content.separator.widthOption === 'Right Line' && (
+              {changeTab === 'Right Line' && (
                 <UnitControl
-                  className="bpdch-custom-style"
                   style={{ width: '90px' }}
                   min={0}
-                  max={content.separator.widthRight.includes('%') ? 100 : 1000}
+                  max={separator.right.width.includes('%') ? 100 : 1000}
                   step={1}
-                  value={content.separator.widthRight}
+                  value={separator.right.width}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, widthRight: value },
+                      separator: {
+                        ...separator,
+                        right: { ...separator.right, width: value },
                       },
                     })
                   }
@@ -556,37 +494,35 @@ const StyleSettings = ({ attributes, setAttributes }) => {
             </PanelRow>
             <PanelRow>
               <span>Height</span>
-              {content.separator.widthOption === 'Left Line' && (
+              {changeTab === 'Left Line' && (
                 <UnitControl
-                  className="bpdch-custom-style"
                   style={{ width: '90px' }}
                   min={0}
-                  max={content.separator.heightLeft.includes('%') ? 100 : 1000}
+                  max={separator.left.height.includes('%') ? 100 : 1000}
                   step={1}
-                  value={content.separator.heightLeft}
+                  value={separator.left.height}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, heightLeft: value },
+                      separator: {
+                        ...separator,
+                        left: { ...separator.left, height: value },
                       },
                     })
                   }
                 />
               )}
-              {content.separator.widthOption === 'Right Line' && (
+              {changeTab === 'Right Line' && (
                 <UnitControl
-                  className="bpdch-custom-style"
                   style={{ width: '90px' }}
                   min={0}
-                  max={content.separator.heightRight.includes('%') ? 100 : 1000}
+                  max={separator.right.height.includes('%') ? 100 : 1000}
                   step={1}
-                  value={content.separator.heightRight}
+                  value={separator.right.height}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, heightRight: value },
+                      separator: {
+                        ...separator,
+                        right: { ...separator.right, height: value },
                       },
                     })
                   }
@@ -594,36 +530,36 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               )}
             </PanelRow>
 
-            {content.separator.widthOption === 'Left Line' && (
+            {changeTab === 'Left Line' && (
               <>
                 <BoxControl
                   label={__('Border Radius', 'dual-color-heading')}
-                  values={content.separator.radiusLeft}
+                  values={separator.left.bRadius}
                   resetValues={borderRadiusResetValues}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, radiusLeft: value },
+                      separator: {
+                        ...separator,
+                        left: { ...separator.left, bRadius: value },
                       },
                     })
                   }
                 />
                 <PanelCustomColorControl
-                  label="Background Color"
-                  value={content.separator.firstColor}
+                  label="Background"
+                  value={separator.left.color}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, firstColor: value },
+                      separator: {
+                        ...separator,
+                        left: { ...separator.left, color: value },
                       },
                     })
                   }
                 />
               </>
             )}
-            {content.separator.widthOption === 'Right Line' && (
+            {changeTab === 'Right Line' && (
               <>
                 <BoxControl
                   label={__('Border Radius', 'dual-color-heading')}
@@ -631,21 +567,21 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                   resetValues={borderRadiusResetValues}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, radiusRight: value },
+                      separator: {
+                        ...separator,
+                        right: { ...separator.right, bRadius: value },
                       },
                     })
                   }
                 />
                 <PanelCustomColorControl
-                  label="Background Color"
-                  value={content.separator.secondColor}
+                  label="Background"
+                  value={separator.right.color}
                   onChange={(value) =>
                     setAttributes({
-                      content: {
-                        ...content,
-                        separator: { ...content.separator, secondColor: value },
+                      separator: {
+                        ...separator,
+                        right: { ...separator.right, color: value },
                       },
                     })
                   }

@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@tinymce/tinymce-react": "^4.3.2",
+    "immer": "^10.0.3",
     "react-icons": "^4.11.0",
     "react-inlinesvg": "^4.1.0",
     "swiper": "^10.3.1"

@@ -15,6 +15,159 @@
       "type": "string",
       "default": ""
     },
+    "sortElements": {
+      "type": "array",
+      "default": ["heading", "separator", "subHeading", "icon"]
+    },
+    "heading": {
+      "type": "object",
+      "default": {
+        "tag": "h2",
+        "colorType": "solid",
+        "first": {
+          "text": "Dual Heading",
+          "color": "#00f",
+          "gradient": "linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)"
+        },
+        "last": { "text": "Example", "color": "" },
+        "typography": {
+          "fontFamily": "Default",
+          "fontCategory": "sans-serif",
+          "fontVariant": "700",
+          "fontWeight": 700,
+          "isUploadFont": true,
+          "fontSize": { "desktop": 40, "tablet": 36, "mobile": 32 },
+          "fontStyle": "normal",
+          "textTransform": "none",
+          "textDecoration": "auto",
+          "lineHeight": "135%",
+          "letterSpace": "0px"
+        }
+      }
+    },
+    "separator": {
+      "type": "object",
+      "default": {
+        "show": true,
+        "type": "line",
+        "icon": "",
+        "iconSize": 36,
+        "iconColor": "#1e1e1e",
+        "alignment": "center",
+        "distance":"0px",
+        "left": {
+          "color": "#4527a4",
+          "width": "100px",
+          "height": "5px",
+          "bRadius": {}
+        },
+        "right": {
+          "color": "#00ffff",
+          "width": "100px",
+          "height": "5px",
+          "bRadius": {}
+        },
+        "margin": {
+          "top": "14px",
+          "right": "14px",
+          "bottom": "14px",
+          "left": "14px"
+        }
+      }
+    },
+    "subHeading": {
+      "type": "object",
+      "default": {
+        "text": "Insert a meaningful line to evaluate the headline.",
+        "color": "#333",
+        "typography": {
+          "fontSize": { "desktop": 16, "tablet": 15, "mobile": 15 }
+        }
+      }
+    },
+    "icon": {
+      "type": "object",
+      "default": {
+        "show": true,
+        "img": "",
+        "size": 36,
+        "color": "#000"
+      }
+    },
+    "alignment": {
+      "type": "object",
+      "default": {
+        "device": "desktop",
+        "desktop": "center",
+        "tablet": "center",
+        "mobile": "center"
+      }
+    },
+    "background": {
+      "type": "object",
+      "default": { "color": "#00000000" }
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "desktop": {
+          "top": "16px",
+          "right": "16px",
+          "bottom": "16px",
+          "left": "16px"
+        },
+        "tablet": {
+          "top": "16px",
+          "right": "16px",
+          "bottom": "16px",
+          "left": "16px"
+        },
+        "mobile": {
+          "top": "16px",
+          "right": "16px",
+          "bottom": "16px",
+          "left": "16px"
+        }
+      }
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "desktop": {},
+        "tablet": {},
+        "mobile": {}
+      }
+    },
+    "border": {
+      "type": "object",
+      "default": {
+        "type": "none",
+        "color": "",
+        "desktop": {
+          "top": "1px",
+          "right": "1px",
+          "bottom": "1px",
+          "left": "1px"
+        },
+        "tablet": {
+          "top": "1px",
+          "right": "1px",
+          "bottom": "1px",
+          "left": "1px"
+        },
+        "mobile": {
+          "top": "1px",
+          "right": "1px",
+          "bottom": "1px",
+          "left": "1px"
+        },
+        "radius": 0
+      }
+    },
+    "shadow": {
+      "type": "string",
+      "default": ""
+    },
     "content": {
       "type": "object",
       "default": {
@@ -168,8 +321,8 @@
             "bottom": "0px",
             "left": "0px"
           },
-          "iconSize":36,
-          "iconColor":"#1e1e1e"
+          "iconSize": 36,
+          "iconColor": "#1e1e1e"
         }
       }
     }
@@ -180,12 +333,7 @@
   },
   "example": {
     "attributes": {
-      "preview": true,
-      "columns": {
-        "desktop": 1,
-        "tablet": 1,
-        "mobile": 1
-      }
+      "preview": true
     }
   },
   "editorScript": "file:./../dist/editor.js"

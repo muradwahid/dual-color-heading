@@ -14,44 +14,54 @@ import TinyEditor from '../Panel/TinyEditor/TinyEditor';
 import Device from '../Panel/Device/Device';
 import svgIcon from '../../../assets/icons/christmas-star-icon.svg'
 import oktaIconSvg from '../../../assets/icons/okta-icon.svg';
+import { SortableControl } from '../../../../Components';
+import { produce } from 'immer';
 const ContentSettings = ({ attributes, setAttributes }) => {
-  const { content } = attributes;
+  const {
+    sortElements,
+    content,
+    heading,
+    icon,
+    separator,
+    subHeading,
+    alignment,
+  } = attributes;
+  //   const updateObject = (attr, property, value, nestProperty = false) => {
+  //   const newAttr = produce(attributes[attr], (draft) => {
+  //     if (nestProperty !== false) {
+  //       draft[property][nestProperty] = value;
+  //     } else {
+  //       draft[property] = value;
+  //     }
+  //   });
+  //   setAttributes({ [attr]: newAttr });
+  // };
   return (
     <Fragment>
       <PanelBody
+        className="bPlPanelBody"
         initialOpen={true}
         title={__('Content Settings', 'dual-color-heading')}
       >
-        <PanelRow>
-          <span>Content Style</span>
-          <SelectControl
-            className="bpdch-custom-style"
-            value={content.contentStyle}
-            options={[
-              { label: 'Default', value: 'default' },
-              { label: 'Icon on top', value: 'iconontop' },
-              { label: 'Icon & sub-text on top', value: 'iconsubtexttop' },
-              { label: 'Sub-text on top', value: 'subtextontop' },
-            ]}
-            onChange={(value) =>
-              setAttributes({ content: { ...content, contentStyle: value } })
-            }
-          />
-        </PanelRow>
+        <SortableControl
+          label={__('Sort Elements:')}
+          value={sortElements}
+          onChange={(val) => setAttributes({ sortElements: val })}
+        />
         <PanelRow>
           <ToggleControl
             label={__('Show Icon', 'dual-color-heading')}
-            checked={content.showIcon}
+            checked={icon.show}
             onChange={(value) =>
-              setAttributes({ content: { ...content, showIcon: value } })
+              setAttributes({ icon: { ...icon, show: value } })
             }
           />
         </PanelRow>
         <ToggleControl
           label={__('Show Separator', 'dual-color-heading')}
-          checked={content.showSeparator}
+          checked={separator.show}
           onChange={(value) =>
-            setAttributes({ content: { ...content, showSeparator: value } })
+            setAttributes({ separator: { ...separator, show: value } })
           }
         />
         <div
@@ -66,9 +76,9 @@ const ContentSettings = ({ attributes, setAttributes }) => {
               <p>Icon</p>
               <MediaArea
                 default={oktaIconSvg}
-                image={content.icon}
+                image={icon.img}
                 renderFunction={(value) =>
-                  setAttributes({ content: { ...content, icon: value } })
+                  setAttributes({ icon: { ...icon, img: value } })
                 }
               />
             </Fragment>
@@ -77,84 +87,79 @@ const ContentSettings = ({ attributes, setAttributes }) => {
         <PanelRow className="">
           <span className="">{__('HTML Tag', 'table-of-contents')}</span>
           <SelectControl
-            className="bpdch-custom-style"
-            value={content.titleTag}
+            value={heading.tag}
             onChange={(value) =>
-              setAttributes({ content: { ...content, titleTag: value } })
+              setAttributes({ heading: { ...heading, tag: value } })
             }
             options={htmlTags}
           />
         </PanelRow>
         <InputControl
+          style={{ margin: '10px 0' }}
           label={__('Title (First Part)', 'dual-color-heading')}
-          value={content.titleFirst}
+          value={heading.first.text}
           onChange={(value) =>
-            setAttributes({ content: { ...content, titleFirst: value } })
+            setAttributes({
+              heading: { ...heading, first: { ...heading.first, text: value } },
+            })
           }
         />
         <InputControl
           label={__('Title (Last Part)', 'dual-color-heading')}
-          value={content.titleSecond}
+          value={heading.last.text}
           onChange={(value) =>
-            setAttributes({ content: { ...content, titleSecond: value } })
+            setAttributes({
+              heading: { ...heading, last: { ...heading.last, text: value } },
+            })
           }
         />
 
         <p style={{ marginBottom: '5px' }}>Sub Text</p>
         <TinyEditor
           height={220}
-          value={content.subContent}
+          value={subHeading.text}
           onChange={(value) =>
-            setAttributes({ content: { ...content, subContent: value } })
+            setAttributes({ subHeading: { ...subHeading, text: value } })
           }
         />
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span>Alignment</span>
             <Device
-              device={content.alignmentDevice}
+              device={alignment.device}
               onChange={(value) =>
                 setAttributes({
-                  content: { ...content, alignmentDevice: value },
+                  alignment: { ...alignment, device: value },
                 })
               }
             />
           </div>
-          {content.alignmentDevice === 'desktop' && (
+          {alignment.device === 'desktop' && (
             <Alignment
-              value={content.alignment.desktop}
+              value={alignment.desktop}
               render={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    alignment: { ...content.alignment, desktop: value },
-                  },
+                  alignment: { ...alignment, desktop: value },
                 })
               }
             />
           )}
-          {content.alignmentDevice === 'tablet' && (
+          {alignment.device === 'tablet' && (
             <Alignment
-              value={content.alignment.tablet}
+              value={alignment.tablet}
               render={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    alignment: { ...content.alignment, tablet: value },
-                  },
+                  alignment: { ...alignment, tablet: value },
                 })
               }
             />
           )}
-          {content.alignmentDevice === 'mobile' && (
+          {alignment.device === 'mobile' && (
             <Alignment
-              value={content.alignment.mobile}
+              value={alignment.mobile}
               render={(value) =>
                 setAttributes({
-                  content: {
-                    ...content,
-                    alignment: { ...content.alignment, mobile: value },
-                  },
+                  alignment: { ...alignment, mobile: value },
                 })
               }
             />
@@ -162,50 +167,34 @@ const ContentSettings = ({ attributes, setAttributes }) => {
         </div>
       </PanelBody>
       <PanelBody
+        className="bPlPanelBody"
         initialOpen={false}
         title={__('Separator', 'dual-color-heading')}
       >
         <PanelRow>
-          <span>Separator Position</span>
-          <SelectControl
-            className="bpdch-custom-style"
-            value={content.separatorPotition}
-            options={[
-              { label: 'Before Title', value: 'before' },
-              { label: 'After Title', value: 'after' },
-            ]}
-            onChange={(value) =>
-              setAttributes({
-                content: { ...content, separatorPotition: value },
-              })
-            }
-          />
-        </PanelRow>
-        <PanelRow>
           <span>Separator Type</span>
           <SelectControl
-            className="bpdch-custom-style"
-            value={content.separatorType}
+            value={separator.type}
             options={[
               { label: 'Line', value: 'line' },
               { label: 'Icon', value: 'icon' },
             ]}
             onChange={(value) =>
               setAttributes({
-                content: { ...content, separatorType: value },
+                separator: { ...separator, type: value },
               })
             }
           />
         </PanelRow>
-        {content.separatorType === 'icon' && (
+        {separator.type === 'icon' && (
           <div>
             <p>Icon</p>
             <MediaArea
-              image={content.separatorIcon}
+              image={separator.icon}
               default={svgIcon}
               className="dual-color-heading-icon"
               renderFunction={(value) =>
-                setAttributes({ content: { ...content, separatorIcon: value } })
+                setAttributes({ separator: { ...separator, icon: value } })
               }
             />
           </div>

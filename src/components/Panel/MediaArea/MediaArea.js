@@ -4,12 +4,12 @@ import './mediaArea.scss'
 const MediaArea = ({ image, renderFunction, default: defaults }) => {
   return (
     <>
-      <div  className='custom-media-area-component'>
+      <div className="custom-media-area-component">
         <MediaUpload
-          gallery={true}
+          gallery={false}
           onSelect={(value) => renderFunction(value.url)}
           value={image}
-          allowedTypes={['image']}
+          allowedTypes={['image/svg+xml']}
           render={({ open }) => (
             <div className="media-area-container">
               <img

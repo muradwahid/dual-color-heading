@@ -2,10 +2,14 @@ import './style.scss';
 import { createRoot } from 'react-dom/client';
 import DualColorHeading from './theme/DualColorHeading/DualColorHeading';
 // Block Name
-function FrontEnd({attributes}) {
+function FrontEnd({ attributes }) {
+	
 	return (
     <>
-	<DualColorHeading attributes={attributes} />
+			<DualColorHeading attributes={attributes} />
+			<div dangerouslySetInnerHTML={{__html: attributes.content}}>
+
+			</div>
     </>
   );
 }
