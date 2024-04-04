@@ -1,10 +1,9 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { useEffect, useState } from 'react';
-
-import TabPanel from './components/Panel/TabPanel/TabPanel';
 import ContentSettings from './components/Settings/ContentSettings';
 import StyleSettings from './components/Settings/StyleSettings';
 import DualColorHeading from './theme/DualColorHeading/DualColorHeading';
+import { TabPanel } from './components/Panel/TabPanel/TabPanel';
 const Edit = (props) => {
   const { className, setAttributes, clientId, attributes } = props;
   const { cId } = attributes;
@@ -14,9 +13,9 @@ const Edit = (props) => {
   }, [clientId]); // Set & Update clientId to cId
 
   return (
-    <div className={className} id={`bpdch-dual-color-heading-${cId}`}>
+    <div className={className} id={`dch-dual-color-heading-${cId}`}>
       <InspectorControls>
-        <TabPanel tab={tab} setTab={setTab} />
+        <TabPanel value={tab} onChange={value=>setTab(value)} />
         {tab === 'content' && (
           <ContentSettings
             attributes={attributes}

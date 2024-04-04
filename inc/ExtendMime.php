@@ -4,7 +4,7 @@ if(!defined('ABSPATH')) {
   exit;
 } // Exit if accessed directly
 
-class BPDCHExtendMime {
+class DCHExtendMime {
 
   public function __construct() {
     global $wp_version;
@@ -43,4 +43,4 @@ class BPDCHExtendMime {
   }
 }
 
-new BPDCHExtendMime();
+new DCHExtendMime();

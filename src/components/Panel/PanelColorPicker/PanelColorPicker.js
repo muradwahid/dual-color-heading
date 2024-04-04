@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { ColorPalette } from '@wordpress/components';
-import { ColorPicker, Dropdown } from '@wordpress/components';
+import {Dropdown } from '@wordpress/components';
 import React from 'react';
 
 const PanelColorPicker = ({ color, value, renderFunction, label }) => {

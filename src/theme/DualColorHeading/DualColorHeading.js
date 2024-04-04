@@ -5,43 +5,38 @@ import oktaIconSvg from '../../../assets/icons/okta-icon.svg';
 import DynamicTag from '../../components/Panel/DynamicTag/DynamicTag';
 import Style from '../../components/Style/Style';
 const DualColorHeading = ({ attributes }) => {
-  const { sortElements, heading, icon, separator, subHeading } =
-    attributes;
+  const { sortElements, heading, icon, separator, subHeading } = attributes;
   return (
     <Fragment>
       <Style attributes={attributes} />
-      <div className="bpdch-dual-color-container">
+      <div className="dch-dual-color-container">
         {sortElements.map((el) => {
           switch (el) {
             case 'heading':
               return (
                 <DynamicTag
                   tagName={heading.tag}
-                  className="bpdch-dual-color-title"
+                  className="dch-dual-color-title"
                 >
-                  <span className="bpdch-dual-color-title-first">
+                  <span className="heading-first">
                     {heading.first.text}{' '}
                   </span>{' '}
-                  <span>{heading.last.text}</span>
+                  <span className="heading-last">{heading.last.text}</span>
                 </DynamicTag>
               );
             case 'separator':
               return (
-                separator.show&& (
-                  <div className="bpdch-separator-wrapper">
+                separator.show && (
+                  <div className="dch-separator-wrapper">
                     {separator.type === 'line' && (
-                      <Fragment>
-                        <span className="bpdch-separator-one"></span>
-                        <span className="bpdch-separator-two"></span>
-                      </Fragment>
+                      <>
+                        <span className="separator-left"></span>
+                        <span className="separator-right"></span>
+                      </>
                     )}
                     {separator.type === 'icon' && (
                       <SVG
-                        src={
-                          separator.icon
-                            ? separator.icon
-                            : svgIcon
-                        }
+                        src={separator.icon?.url ? separator.icon.url : svgIcon}
                         width={separator.iconSize}
                         height="auto"
                       />
@@ -52,18 +47,22 @@ const DualColorHeading = ({ attributes }) => {
             case 'subHeading':
               return (
                 <div
-                  className="bpdch-dual-color-subcontent"
+                  className="dch-dual-color-subcontent"
                   dangerouslySetInnerHTML={{ __html: subHeading.text }}
                 ></div>
               );
             case 'icon':
-              return icon.show && <SVG
-                className="bpdch-dual-color-icon-svg"
-                src={icon.img|| oktaIconSvg}
-                width={icon.size}
-                height="auto"
-                style={{ margin: '10px 0' }}
-              />;
+              return (
+                icon.show && (
+                  <SVG
+                    className="dch-dual-color-icon-svg"
+                    src={icon.img?.url || oktaIconSvg}
+                    width={icon.size}
+                    height="auto"
+                    style={{ margin: '10px 0' }}
+                  />
+                )
+              );
           }
         })}
       </div>

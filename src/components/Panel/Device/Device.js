@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './device.scss';
-const Device = ({ device = 'desktop', onChange = () => {},style }) => {
+const Device = ({ device = 'desktop', onChange = () => { }, style, position = "horizontal",className }) => {
   const [show, setShow] = useState(false);
   const deviceValue = [
     {
@@ -11,25 +11,23 @@ const Device = ({ device = 'desktop', onChange = () => {},style }) => {
     { value: 'mobile', icon: 'dashicons-smartphone' },
   ];
   return (
-    <div style={style} >
+    <div style={style} className={className}>
       {!show && (
         <div style={{ display: 'flex' }}>
           <button onClick={() => setShow(true)} className="single-device">
             <span
-              className={`dashicons dashicons-${
-                device === 'desktop'
-                  ? 'desktop'
-                  : device === 'tablet'
+              className={`dashicons dashicons-${device === 'desktop'
+                ? 'desktop'
+                : device === 'tablet'
                   ? 'tablet'
                   : 'smartphone'
-              }`}
+                }`}
             ></span>
           </button>
         </div>
       )}
-
       {show && (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: position === "horizontal" ? "flex" : "grid" }}>
           {deviceValue.map(({ value, icon }, i) => (
             <button
               key={i}

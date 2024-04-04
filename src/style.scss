@@ -2,40 +2,40 @@ $primaryColor: #4527a4;
 
 // Common CSS
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 // Dashicon
 .dashicons {
-	font-family: dashicons !important;
+  font-family: dashicons !important;
 }
 
-// Block Name
-.wp-block-prefix-block-name {
-	* {
-		box-sizing: border-box;
-	}
+.wp-block-dch-dual-color-headin {
+  * {
+    box-sizing: border-box;
+  }
 
-	.prefixBlockName {
-		display: inline-block;
-	}
+  .prefixBlockName {
+    display: inline-block;
+  }
 
-	.icon {
-		font-style: inherit;
-	}
+  .icon {
+    font-style: inherit;
+  }
 
-	img {
-		width: 100%;
-		max-width: 100%;
-	}
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
 }
-.bpdch-dual-color-title{
-	margin:10px 0;
+
+.dch-dual-color-title {
+  margin: 10px 0;
 }
-.bpdch-separator-wrapper{
-	display: flex;
-	width: 100%;
+.dch-separator-wrapper {
+  display: flex;
+  width: 100%;
 }
-.bpdch-dual-color-container{
-	padding: 10px;
+.dch-dual-color-container {
+  padding: 10px;
 }

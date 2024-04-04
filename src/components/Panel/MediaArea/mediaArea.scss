@@ -23,16 +23,16 @@
     background-size: 16px 16px;
     background-position: 0 0, calc(16px / 2) calc(16px / 2);
     background-color: #fff;
-    aspect-ratio: 20.5/9;
     display: flex;
     align-items: center;
     justify-content: center;
-    .media-area-image {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border: none;
-
+    &:hover {
+      .media-bottom {
+        bottom: 0;
+      }
+      .media-delete {
+        display: block;
+      }
     }
     .media-bottom {
       position: absolute;
@@ -54,13 +54,28 @@
       display: none;
       color: white;
     }
-  }
-  .media-area-container:hover {
-    .media-bottom {
-      bottom: 0;
+    .media-area-image {
+      object-fit: contain;
+      border: none;
     }
-    .media-delete {
-      display: block;
+    .media-plusBtn-wrapper {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .mediaPlus-btn-circle {
+        background: #ffffff;
+        height: 25px;
+        width: 25px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 0px 10px 0px #3d3e3e;
+        .mediaPlusBtn {
+        }
+      }
     }
   }
 }

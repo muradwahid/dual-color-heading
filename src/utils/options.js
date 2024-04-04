@@ -1,3 +1,5 @@
+import { __ } from "@wordpress/i18n";
+
 export const htmlTags = [
   { label: 'H1', value: 'h1' },
   { label: 'H2', value: 'h2' },
@@ -26,3 +28,21 @@ export const borderRadiusResetValues = {
   bottom: '0px',
   left: '0px',
 };
+
+export const aligns = [
+  {
+    label: __('Left', 'dual-color-heading'),
+    value: 'left',
+    icon: 'editor-alignleft',
+  },
+  {
+    label: __('Center', 'dual-color-heading'),
+    value: 'center',
+    icon: 'editor-aligncenter',
+  },
+  {
+    label: __('Right', 'dual-color-heading'),
+    value: 'right',
+    icon: 'editor-alignright',
+  }
+];

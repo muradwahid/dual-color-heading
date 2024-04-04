@@ -1,11 +1,13 @@
 import React from 'react';
 import {
   getBackgroundCSS,
+  getBorderCSS,
+  getBoxCSS,
+  getMultiShadowCSS,
   getTypoCSS,
 } from '../../../../Components/utils/getCSS';
 const Style = ({ attributes }) => {
   const {
-    content,
     cId,
     heading,
     alignment,
@@ -17,123 +19,128 @@ const Style = ({ attributes }) => {
     icon,
     subHeading,
     separator,
-    subTitle,
   } = attributes;
+
+  const mainSl = `#dch-dual-color-heading-${cId}`;
+  const containerSl = `${mainSl} .dch-dual-color-container`;
+  const titleSl = `${containerSl} .dch-dual-color-title`;
+  const subContentSl = `${containerSl} .dch-dual-color-subcontent`;
+  const sepWrapSl = `${mainSl} .dch-separator-wrapper`;
+
+  const justifyItems = (device) =>
+    `justify-items: ${
+      alignment[device] === 'left'
+        ? 'start'
+        : alignment[device] === 'right'
+        ? 'end'
+        : 'center'
+    }`;
+
   return (
     <style>
       {`
-      ${getTypoCSS('', heading.typhography)?.googleFontLink}
-      ${getTypoCSS('', subHeading.typhography)?.googleFontLink}
-      
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container{
-        display:grid;
-        ${getBackgroundCSS(background)}
-        padding-top:${padding.desktop.top};
-        padding-bottom:${padding.desktop.bottom};
-        padding-left:${padding.desktop.left};
-        padding-right:${padding.desktop.right};
-        margin-top:${margin.desktop.top};
-        margin-bottom:${margin.desktop.bottom};
-        margin-left:${margin.desktop.left};
-        margin-right:${margin.desktop.right};
-        border-top-width:${border.desktop.top};
-        border-bottom-width:${border.desktop.bottom};
-        border-left-width:${border.desktop.left};
-        border-right-width:${border.desktop.right};
-        border-style:${border.type};
-        border-color:${border.color};
-        border-radius:${border.radius}px;
-        box-shadow:${shadow};
-        justify-items:${
-          alignment.desktop === 'center'
-            ? 'center'
-            : alignment.desktop === 'right'
-            ? 'end'
-            : 'start'
-        };
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-title{
-        color:${heading.last.color};
-      }
-      ${
-        getTypoCSS(
-          '#bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-title',
-          heading.typography
-        ).styles
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-separator-wrapper{
-        margin-top:${separator.margin.top};
-        margin-bottom:${separator.margin.bottom};
-        margin-left:${separator.margin.left};
-        margin-right:${separator.margin.right};
-        justify-content:${
+			${getTypoCSS('', heading.typhography)?.googleFontLink}
+			${getTypoCSS('', subHeading.typhography)?.googleFontLink}
+	  
+			${containerSl}{
+				display:grid;
+				${justifyItems('desktop')};
+				${getBackgroundCSS(background)}
+				padding: ${getBoxCSS(padding.desktop)};
+				${getBorderCSS(border)}
+				box-shadow:${getMultiShadowCSS(shadow)};
+				margin: ${getBoxCSS(margin.desktop)};
+			}
+	  	${getTypoCSS(titleSl, heading.typography).styles}
+
+			${sepWrapSl}{
+				gap: ${separator.distance};
+				justify-content:${
           separator.alignment === 'left'
             ? 'flex-start'
             : separator.alignment === 'center'
             ? 'center'
             : 'flex-end'
         };
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-separator-one{
-        height:${separator.left.height};
-        width:${separator.left.width};
-        border-radius:${separator.left.bRadius?.top} ${
-        separator.left.bRadius?.left
-      } ${separator.left?.bRadius.bottom} ${separator.left.bRadius?.right};
-        margin-right:${separator.distance};
-        background:${separator.left.color};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-separator-two{
-        height:${separator.right.height};
-        width:${separator.right.width};
-        border-radius:${separator.right.bRadius?.top} ${
-        separator.right.bRadius?.left
-      } ${separator.right.bRadius?.bottom} ${separator.right.bRadius?.right};
-        margin-left:${separator.distance};
-        background:${separator.right.color};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-separator-wrapper svg{
-        color:${separator.iconColor};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-separator-wrapper svg path{
-        fill:${separator.iconColor};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-icon-svg{
-        color:${icon.color};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-icon-svg path{
-        fill:${icon.color};
-      }
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-container .bpdch-dual-color-subcontent{
-        color:${subHeading.color} !important;
-        display:grid;
-        justify-items:${
-          alignment.desktop === 'center'
-            ? 'center'
-            : alignment.desktop === 'right'
-            ? 'end'
-            : 'start'
-        };
-      }
-      ${
+				margin: ${getBoxCSS(separator.margin)};
+	  	}
+
+	  ${['left', 'right']
+      .map(
+        (side) => `${mainSl} .separator-${side}{
+					width:${separator[side].width};
+					height:${separator[side].height};
+					background:${separator[side].color};
+					border-radius: ${getBoxCSS(separator[side].bRadius)};
+	  		}`
+      )
+      .join('')}
+
+			${sepWrapSl} svg{
+				color: ${separator.iconColor};
+			}
+			${sepWrapSl} svg path{
+				fill: ${separator.iconColor};
+			}
+			${containerSl} .dch-dual-color-icon-svg{
+				color:${icon.color};
+			}
+			${containerSl} .dch-dual-color-icon-svg path{
+				fill:${icon.color};
+			}
+			${subContentSl}{
+				color:${subHeading.color} !important;
+				display:grid;
+				${justifyItems('desktop')};
+			}
+			${
         getTypoCSS(
-          '.bpdch-dual-color-container>.bpdch-dual-color-subcontent',
+          '.dch-dual-color-container>.dch-dual-color-subcontent',
           subHeading.typography
         ).styles
       }
-      #bpdch-dual-color-heading-${cId} .bpdch-dual-color-title-first{
-        color:${heading.colorType === 'solid' && heading.first.color};
-        ${
-          heading.colorType === 'gradient'
-            ? `
-        background:${heading.first.gradient};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;  
-        `
-            : ''
-        }
-      }
-      `}
+
+			${['first', 'last']
+        .map(
+          (part) => `${titleSl} .heading-${part}{
+						${
+              heading[part].color
+                ? `color:${
+                    heading[part].colorType === 'solid' && heading[part].color
+                  };`
+                : `background:${heading[part].gradient};`
+            }
+						background:${heading[part].colorType === 'gradient' && heading[part].gradient};
+			${
+				heading[part].colorType === 'gradient' || heading[part].color.length===0 ?
+				`
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent; 
+					`:""
+			}
+			}` ).join('')}
+			@media screen and (max-width: 768px) {
+				${containerSl}{
+					padding: ${getBoxCSS(padding.tablet)};
+					margin: ${getBoxCSS(margin.tablet)};
+					${justifyItems('tablet')};
+				}
+				${subContentSl}{
+					${justifyItems('tablet')};
+				}
+			}
+			
+			@media screen and (max-width: 576px) {
+				${containerSl}{
+					padding: ${getBoxCSS(padding.mobile)};
+					margin: ${getBoxCSS(margin.mobile)};
+					${justifyItems('mobile')};
+				}
+				${subContentSl}{
+					${justifyItems('mobile')};
+				}
+			}
+	`}
     </style>
   );
 };

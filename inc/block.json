@@ -1,10 +1,10 @@
 {
   "apiVersion": "1",
-  "name": "bpdch/dual-color-heading",
+  "name": "b-blocks/dual-color-heading",
   "title": "Dual Color Heading",
-  "description": "Description of Dual Color Heading.",
+  "description": "Highlight content heading with different colors.",
   "category": "widgets",
-  "keywords": ["dual", "color", "heading"],
+  "keywords": ["dual", "color", "heading", "dual-color-heading"],
   "textdomain": "dual-color-heading",
   "attributes": {
     "align": {
@@ -26,10 +26,16 @@
         "colorType": "solid",
         "first": {
           "text": "Dual Heading",
-          "color": "#00f",
+          "colorType": "gradient",
+          "color": "#4527a4",
           "gradient": "linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)"
         },
-        "last": { "text": "Example", "color": "" },
+        "last": {
+          "text": "Example",
+          "colorType": "solid",
+          "color": "",
+          "gradient": "linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)"
+        },
         "typography": {
           "fontFamily": "Default",
           "fontCategory": "sans-serif",
@@ -50,11 +56,11 @@
       "default": {
         "show": true,
         "type": "line",
-        "icon": "",
+        "icon": { "url": "", "alt": "", "title": "" },
         "iconSize": 36,
         "iconColor": "#1e1e1e",
         "alignment": "center",
-        "distance":"0px",
+        "distance": "0px",
         "left": {
           "color": "#4527a4",
           "width": "100px",
@@ -89,7 +95,7 @@
       "type": "object",
       "default": {
         "show": true,
-        "img": "",
+        "img": { "url": "", "alt": "", "title": "" },
         "size": 36,
         "color": "#000"
       }
@@ -97,7 +103,6 @@
     "alignment": {
       "type": "object",
       "default": {
-        "device": "desktop",
         "desktop": "center",
         "tablet": "center",
         "mobile": "center"
@@ -140,33 +145,11 @@
     },
     "border": {
       "type": "object",
-      "default": {
-        "type": "none",
-        "color": "",
-        "desktop": {
-          "top": "1px",
-          "right": "1px",
-          "bottom": "1px",
-          "left": "1px"
-        },
-        "tablet": {
-          "top": "1px",
-          "right": "1px",
-          "bottom": "1px",
-          "left": "1px"
-        },
-        "mobile": {
-          "top": "1px",
-          "right": "1px",
-          "bottom": "1px",
-          "left": "1px"
-        },
-        "radius": 0
-      }
+      "default": { "color": "#4527a4" }
     },
     "shadow": {
-      "type": "string",
-      "default": ""
+      "type": "array",
+      "default": []
     }
   },
   "supports": {

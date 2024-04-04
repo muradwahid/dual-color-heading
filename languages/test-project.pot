@@ -1,0 +1,172 @@
+# Copyright (C) 2024 bPlugins LLC
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: Dual Color Heading 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dual-color-heading\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-04-04T11:34:59+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: dual-color-heading\n"
+
+#. Plugin Name of the plugin
+msgid "Dual Color Heading"
+msgstr ""
+
+#. Description of the plugin
+msgid "Highlight content heading with different colors."
+msgstr ""
+
+#. Author of the plugin
+msgid "bPlugins LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://bplugins.com"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:9808
+msgid "Left"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:9813
+msgid "Center"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:9818
+msgid "Right"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10692
+msgid "Elements"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10704
+#: dist/editor.js:11260
+msgid "Heading"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10738
+#: dist/editor.js:11419
+msgid "Separator"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10741
+msgid "Show Separator"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10787
+#: dist/editor.js:11394
+msgid "Sub Heading"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10801
+#: dist/editor.js:10813
+msgid "Icon"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10804
+msgid "Show Icon"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11158
+msgid "Wrapper/Container"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11161
+#: dist/editor.js:11422
+msgid "Alignment:"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11179
+msgid "Background"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11251
+msgid "Shadow"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11409
+msgid "Color"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11452
+msgid "Distance Between Lines"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11473
+msgid "Width"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11491
+msgid "Height"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11524
+msgid "Border Radius"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11545
+#: dist/editor.js:11576
+msgid "Icon Size"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11573
+msgid "Icon Style"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block title"
+msgid "Dual Color Heading"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block description"
+msgid "Highlight content heading with different colors."
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "dual"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "color"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "heading"
+msgstr ""
+
+#: inc/block.json
+msgctxt "block keyword"
+msgid "dual-color-heading"
+msgstr ""

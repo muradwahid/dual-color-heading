@@ -1,29 +1,35 @@
 import {
   __experimentalBoxControl as BoxControl,
+  GradientPicker,
   PanelBody,
   PanelRow,
   RangeControl,
-  SelectControl,
   __experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { Fragment, useState } from 'react';
-import { Background, Typography } from '../../../../Components';
 import {
+  BColor,
+  Background,
+  BorderControl,
+  BtnGroup,
+  Label,
+  MultiShadowControl,
+  Typography,
+} from '../../../../Components';
+import { bgTypes, gradients } from '../../../../Components/utils/options';
+import {
+  aligns,
   borderRadiusResetValues,
-  dualColorOptions,
   marginResetValues,
 } from '../../utils/options';
-import Alignment from '../Panel/Alignment/Alignment';
 import Device from '../Panel/Device/Device';
 import IncludeExClude from '../Panel/IncludeExClude/IncludeExClude';
 import PanelColorPicker from '../Panel/PanelColorPicker/PanelColorPicker';
 import PanelCustomColorControl from '../Panel/PanelCustomColorControl/PanelCustomColorControl';
-import PanelGradientPicker from '../Panel/PanelGradientPicker/PanelGradientPicker';
-import PanelShadow from '../Panel/PanelShadow/PanelShadow';
 const StyleSettings = ({ attributes, setAttributes }) => {
   const {
-    content,
+    alignment,
     background,
     padding,
     margin,
@@ -34,88 +40,40 @@ const StyleSettings = ({ attributes, setAttributes }) => {
     subHeading,
     separator,
   } = attributes;
-  const [paddingDevice, setPaddingDevice] = useState('desktop');
-  const [marginDevice, setMarginDevice] = useState('desktop');
-  const [borderDevice, setBorderDevice] = useState('desktop');
-  const [changeTab, setChangeTab] = useState('Left Line');
+
+  const [device, setDevice] = useState("desktop")
+  const [sepTab, setSepTab] = useState('left');
+
   return (
     <Fragment>
       <PanelBody
         initialOpen={true}
-        title={__('Dual Heading Style', 'dual-color-heading')}
+        title={__('Wrapper/Container', 'dual-color-heading')}
       >
+        <PanelRow style={{ position: "relative" }}>
+          <Label className="">{__('Alignment:', 'dual-color-heading')}</Label>
+          <Device
+            device={device}
+            onChange={(value) => setDevice(value)}
+          />
+        </PanelRow>
+        <BtnGroup
+          value={alignment[device]}
+          onChange={(val) =>
+            setAttributes({
+              alignment: { ...alignment, [device]: val },
+            })
+          }
+          options={aligns}
+          isIcon={true}
+        />
+
         <Background
           label={__('Background', 'dual-color-heading')}
           value={background}
           onChange={(val) => setAttributes({ background: val })}
         />
-        <div
-          style={{
-            marginTop: '20px',
-            position: 'relative',
-          }}
-        >
-          <Device
-            device={paddingDevice}
-            style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) => setPaddingDevice(value)}
-          />
 
-          {paddingDevice === 'desktop' && (
-            <BoxControl
-              label="Padding"
-              values={padding.desktop}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  padding: { ...padding, desktop: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {paddingDevice === 'tablet' && (
-            <BoxControl
-              label="Padding"
-              values={padding.tablet}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  padding: { ...padding, tablet: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {paddingDevice === 'mobile' && (
-            <BoxControl
-              label="Padding"
-              values={padding.mobile}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  padding: { ...padding, mobile: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-        </div>
         <div
           style={{
             marginTop: '20px',
@@ -123,83 +81,28 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }}
         >
           <Device
-            device={marginDevice}
+            device={device}
             style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) => setMarginDevice(value)}
+            onChange={(value) => setDevice(value)}
           />
-          {marginDevice === 'desktop' && (
-            <BoxControl
-              label="Margin"
-              values={margin?.desktop}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  margin: { ...margin, desktop: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {marginDevice === 'tablet' && (
-            <BoxControl
-              label="Margin"
-              values={margin.tablet}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  margin: { ...margin, tablet: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {marginDevice === 'mobile' && (
-            <BoxControl
-              label="Margin"
-              values={margin.mobile}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({
-                  margin: { ...margin, mobile: value },
-                })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-        </div>
-        <PanelRow>
-          <span style={{ marginBottom: '10px' }}>Border Type</span>
-          <SelectControl
-            value={border.type}
-            options={[
-              { label: 'Default', value: 'default' },
-              { label: 'None', value: 'none' },
-              { label: 'Solid', value: 'solid' },
-              { label: 'Double', value: 'double' },
-              { label: 'Dotted', value: 'dotted' },
-              { label: 'Dashed', value: 'dashed' },
-              { label: 'Groove', value: 'groove' },
-            ]}
+          <BoxControl
+            label="Padding"
+            values={padding[device]}
+            resetValues={{
+              left: '0px',
+              right: '0px',
+              top: '0px',
+              bottom: '0px',
+            }}
             onChange={(value) =>
-              setAttributes({ border: { ...border, type: value } })
+              setAttributes({
+                padding: { ...padding, [device]: value },
+              })
             }
+            units={__('px', 'em', '%')}
           />
-        </PanelRow>
+        </div>
+
         <div
           style={{
             marginTop: '20px',
@@ -207,115 +110,119 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }}
         >
           <Device
-            device={borderDevice}
-            style={{ position: 'absolute', left: '90px', top: '-3px' }}
-            onChange={(value) => setBorderDevice(value)}
+            device={device}
+            style={{ position: 'absolute', left: '60px', top: '-3px' }}
+            onChange={(value) => setDevice(value)}
           />
-          {borderDevice === 'desktop' && (
-            <BoxControl
-              label="Border Width"
-              values={border.desktop}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({ border: { ...border, desktop: value } })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {borderDevice === 'tablet' && (
-            <BoxControl
-              label="Border Width"
-              values={border.tablet}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({ border: { ...border, tablet: value } })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-          {borderDevice === 'mobile' && (
-            <BoxControl
-              label="Border Width"
-              values={border.mobile}
-              resetValues={{
-                left: '0px',
-                right: '0px',
-                top: '0px',
-                bottom: '0px',
-              }}
-              onChange={(value) =>
-                setAttributes({ border: { ...border, mobile: value } })
-              }
-              units={__('px', 'em', '%')}
-            />
-          )}
-        </div>
-        <PanelColorPicker
-          color={border.color}
-          label="Border Color"
-          value={border.color}
-          renderFunction={(value) =>
-            setAttributes({ border: { ...border, color: value } })
-          }
-        />
-        <div style={{ marginTop: '10px' }}>
-          <RangeControl
-            label="Border Radius"
-            value={border.radius}
+          <BoxControl
+            label="Margin"
+            values={margin[device]}
+            resetValues={{
+              left: '0px',
+              right: '0px',
+              top: '0px',
+              bottom: '0px',
+            }}
             onChange={(value) =>
-              setAttributes({ border: { ...border, radius: value } })
+              setAttributes({
+                margin: { ...margin, [device]: value },
+              })
             }
+            units={__('px', 'em', '%')}
           />
         </div>
-        <PanelShadow
-          label="Box Shadow"
+
+        <BorderControl
+          className="mt20"
+          label={__('Border:', 'bplugins')}
+          value={border}
+          onChange={(value) => setAttributes({ border: value })}
+        />
+
+        <MultiShadowControl
+          className="mt20"
+          label={__('Shadow', 'dual-color-heading')}
           value={shadow}
           onChange={(value) => setAttributes({ shadow: value })}
         />
       </PanelBody>
-      {icon.show && (
-        <PanelBody
-          initialOpen={false}
-          title={__('Icon Style', 'dual-color-heading')}
-        >
-          <RangeControl
-            label={__('Icon Size', 'dual-color-heading')}
-            value={icon.size}
-            min={10}
-            max={550}
-            onChange={(value) =>
-              setAttributes({ icon: { ...icon, size: value } })
-            }
-          />
-          <PanelColorPicker
-            label="Icon Color"
-            color={icon.color}
-            value={icon.color}
-            renderFunction={(value) =>
-              setAttributes({ icon: { ...icon, color: value } })
-            }
-          />
-        </PanelBody>
-      )}
 
       <PanelBody
+        className="bPlPanelBody"
         initialOpen={false}
-        title={__('Typography', 'dual-color-heading')}
+        title={__('Heading', 'dual-color-heading')}
       >
-        <div style={{ margin: '10px 0' }}>
-          <strong>Title Style</strong>
-        </div>
-        <PanelColorPicker
+        <Typography
+          className="mb10"
+          value={heading.typography}
+          onChange={(value) =>
+            setAttributes({
+              heading: { ...heading, typography: value },
+            })
+          }
+        />
+
+        {['first', 'last'].map((part) => (
+          <>
+            <PanelRow className="mt20">
+              <Label className="">
+                {__(
+                  `${part[0].toUpperCase() + part.substring(1)} Color Type:`,
+                  'bplugins'
+                )}
+              </Label>
+              <BtnGroup
+                value={heading[part].colorType}
+                onChange={(val) =>
+                  setAttributes({
+                    heading: {
+                      ...heading,
+                      [part]: { ...heading[part], colorType: val },
+                    },
+                  })
+                }
+                options={bgTypes}
+                size="small"
+              />
+            </PanelRow>
+
+            {'gradient' === heading[part].colorType ? (
+              <Fragment>
+                <GradientPicker
+                  value={heading[part].gradient}
+                  onChange={(val) =>
+                    setAttributes({
+                      heading: {
+                        ...heading,
+                        [part]: { ...heading[part], gradient: val },
+                      },
+                    })
+                  }
+                  gradients={gradients}
+                />
+              </Fragment>
+            ) : (
+              <BColor
+                label={__(
+                  `${part[0].toUpperCase() + part.substring(1)} Color:`,
+                  'bplugins'
+                )}
+                value={heading[part].color}
+                onChange={(val) =>
+                  setAttributes({
+                    heading: {
+                      ...heading,
+                      [part]: { ...heading[part], color: val },
+                    },
+                  })
+                }
+                defaultColor={'first' === part ? '#4527a4' : ''}
+              />
+            )}
+          </>
+        ))}
+
+        {/* <PanelColorPicker
           color={heading.last.color}
           value={heading.last.color}
           label={__('Main Color', 'dual-color-heading')}
@@ -371,24 +278,24 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               })
             }
           />
-        )}
+        )} */}
+      </PanelBody>
+
+      <PanelBody
+        className="bPlPanelBody"
+        initialOpen={false}
+        title={__('Sub Heading', 'dual-color-heading')}
+      >
         <Typography
-          value={heading.typography}
+          className="mb10"
+          value={subHeading.typography}
           onChange={(value) =>
             setAttributes({
-              heading: { ...heading, typography: value },
+              subHeading: { ...subHeading, typography: value },
             })
           }
         />
-        <div
-          style={{
-            borderTop: '1px solid #ccc',
-            marginTop: '10px',
-            paddingTop: '10px',
-          }}
-        >
-          <strong>Sub-title Style</strong>
-        </div>
+
         <PanelColorPicker
           color={subHeading.color}
           value={subHeading.color}
@@ -397,202 +304,136 @@ const StyleSettings = ({ attributes, setAttributes }) => {
             setAttributes({ subHeading: { ...subHeading, color: value } })
           }
         />
-        <Typography
-          value={subHeading.typography}
-          onChange={(value) =>
-            setAttributes({
-              subHeading: { ...subHeading, typography: value },
-            })
-          }
-        />
       </PanelBody>
+
       <PanelBody
+        className="bPlPanelBody"
         initialOpen={false}
         title={__('Separator', 'dual-color-heading')}
       >
+        <PanelRow>
+          <Label className="">{__('Alignment:', 'dual-color-heading')}</Label>
+          <BtnGroup
+            value={separator.alignment}
+            onChange={(val) =>
+              setAttributes({
+                separator: { ...separator, alignment: val },
+              })
+            }
+            options={aligns}
+            isIcon={true}
+          />
+        </PanelRow>
+
+        <div className="mt20">
+          <BoxControl
+            label="Margin"
+            resetValues={marginResetValues}
+            values={separator.margin}
+            onChange={(value) =>
+              setAttributes({
+                separator: { ...separator, margin: value },
+              })
+            }
+          />
+        </div>
+
         {separator.type === 'line' && (
-          <Fragment>
-            <span>Alignment</span>
-            <Alignment
-              value={separator.alignment}
-              render={(value) =>
+          <>
+            <UnitControl
+              className="mt20"
+              label={__('Distance Between Lines', 'dual-color-heading')}
+              labelPosition="left"
+              min={0}
+              max={1000}
+              step={5}
+              value={separator.distance}
+              onChange={(value) =>
                 setAttributes({
-                  separator: { ...separator, alignment: value },
+                  separator: { ...separator, distance: value },
                 })
               }
             />
-            <PanelRow>
-              <span style={{ marginBottom: '10px' }}>
-                Distance Between Lines
-              </span>
-              <UnitControl
-                style={{ width: '90px' }}
-                min={0}
-                max={1000}
-                step={5}
-                value={separator.distance}
+
+            <br />
+            <IncludeExClude
+              options={['left', 'right']}
+              value={sepTab}
+              renderFunction={(value) => setSepTab(value)}
+            />
+
+            <UnitControl
+              label={__('Width', 'dual-color-heading')}
+              labelPosition="left"
+              min={0}
+              max={separator[sepTab].width.includes('%') ? 100 : 1000}
+              step={1}
+              value={separator[sepTab].width}
+              onChange={(value) =>
+                setAttributes({
+                  separator: {
+                    ...separator,
+                    [sepTab]: { ...separator[sepTab], width: value },
+                  },
+                })
+              }
+            />
+
+            <UnitControl
+              className="mt20"
+              label={__('Height', 'dual-color-heading')}
+              labelPosition="left"
+              min={0}
+              max={separator[sepTab].height.includes('%') ? 100 : 1000}
+              step={1}
+              value={separator[sepTab].height}
+              onChange={(value) =>
+                setAttributes({
+                  separator: {
+                    ...separator,
+                    [sepTab]: { ...separator[sepTab], height: value },
+                  },
+                })
+              }
+            />
+
+            <div className="mt20">
+              <PanelCustomColorControl
+                label="Color"
+                value={separator[sepTab].color}
                 onChange={(value) =>
                   setAttributes({
-                    separator: { ...separator, distance: value },
-                  })
-                }
-              />
-            </PanelRow>
-            <div style={{ marginTop: '10px' }}>
-              <BoxControl
-                label="Margin"
-                resetValues={marginResetValues}
-                values={separator.margin}
-                onChange={(value) =>
-                  setAttributes({
-                    separator: { ...separator, margin: value },
+                    separator: {
+                      ...separator,
+                      [sepTab]: { ...separator[sepTab], color: value },
+                    },
                   })
                 }
               />
             </div>
-            <IncludeExClude
-              options={['Left Line', 'Right Line']}
-              value={changeTab}
-              renderFunction={(value) => setChangeTab(value)}
-            />
-            <PanelRow>
-              <span>Width</span>
-              {changeTab === 'Left Line' && (
-                <UnitControl
-                  style={{ width: '90px' }}
-                  min={0}
-                  max={separator.left.width.includes('%') ? 100 : 1000}
-                  step={1}
-                  value={separator.left.width}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        left: { ...separator.left, width: value },
-                      },
-                    })
-                  }
-                />
-              )}
-              {changeTab === 'Right Line' && (
-                <UnitControl
-                  style={{ width: '90px' }}
-                  min={0}
-                  max={separator.right.width.includes('%') ? 100 : 1000}
-                  step={1}
-                  value={separator.right.width}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        right: { ...separator.right, width: value },
-                      },
-                    })
-                  }
-                />
-              )}
-            </PanelRow>
-            <PanelRow>
-              <span>Height</span>
-              {changeTab === 'Left Line' && (
-                <UnitControl
-                  style={{ width: '90px' }}
-                  min={0}
-                  max={separator.left.height.includes('%') ? 100 : 1000}
-                  step={1}
-                  value={separator.left.height}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        left: { ...separator.left, height: value },
-                      },
-                    })
-                  }
-                />
-              )}
-              {changeTab === 'Right Line' && (
-                <UnitControl
-                  style={{ width: '90px' }}
-                  min={0}
-                  max={separator.right.height.includes('%') ? 100 : 1000}
-                  step={1}
-                  value={separator.right.height}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        right: { ...separator.right, height: value },
-                      },
-                    })
-                  }
-                />
-              )}
-            </PanelRow>
 
-            {changeTab === 'Left Line' && (
-              <>
-                <BoxControl
-                  label={__('Border Radius', 'dual-color-heading')}
-                  values={separator.left.bRadius}
-                  resetValues={borderRadiusResetValues}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        left: { ...separator.left, bRadius: value },
-                      },
-                    })
-                  }
-                />
-                <PanelCustomColorControl
-                  label="Background"
-                  value={separator.left.color}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        left: { ...separator.left, color: value },
-                      },
-                    })
-                  }
-                />
-              </>
-            )}
-            {changeTab === 'Right Line' && (
-              <>
-                <BoxControl
-                  label={__('Border Radius', 'dual-color-heading')}
-                  values={separator.right.bRadius}
-                  resetValues={borderRadiusResetValues}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        right: { ...separator.right, bRadius: value },
-                      },
-                    })
-                  }
-                />
-                <PanelCustomColorControl
-                  label="Background"
-                  value={separator.right.color}
-                  onChange={(value) =>
-                    setAttributes({
-                      separator: {
-                        ...separator,
-                        right: { ...separator.right, color: value },
-                      },
-                    })
-                  }
-                />
-              </>
-            )}
-          </Fragment>
+            <div className="mt20">
+              <BoxControl
+                label={__('Border Radius', 'dual-color-heading')}
+                values={separator[sepTab].bRadius}
+                resetValues={borderRadiusResetValues}
+                onChange={(value) =>
+                  setAttributes({
+                    separator: {
+                      ...separator,
+                      [sepTab]: { ...separator[sepTab], bRadius: value },
+                    },
+                  })
+                }
+              />
+            </div>
+          </>
         )}
+
         {separator.type === 'icon' && (
-          <Fragment>
+          <>
             <RangeControl
+              className="mt20"
               value={separator.iconSize}
               label={__('Icon Size', 'dual-color-heading')}
               min={0}
@@ -614,30 +455,35 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                 })
               }
             />
-            <span>Alignment</span>
-            <Alignment
-              value={separator.alignment}
-              render={(value) =>
-                setAttributes({
-                  separator: { ...separator, alignment: value },
-                })
-              }
-            />
-            <div style={{ marginTop: '10px' }}>
-              <BoxControl
-                label="Margin"
-                resetValues={marginResetValues}
-                values={separator.margin}
-                onChange={(value) =>
-                  setAttributes({
-                    separator: { ...separator, margin: value },
-                  })
-                }
-              />
-            </div>
-          </Fragment>
+          </>
         )}
       </PanelBody>
+
+      {icon.show && (
+        <PanelBody
+          className="bPlPanelBody"
+          initialOpen={false}
+          title={__('Icon Style', 'dual-color-heading')}
+        >
+          <RangeControl
+            label={__('Icon Size', 'dual-color-heading')}
+            value={icon.size}
+            min={10}
+            max={550}
+            onChange={(value) =>
+              setAttributes({ icon: { ...icon, size: value } })
+            }
+          />
+          <PanelColorPicker
+            label="Icon Color"
+            color={icon.color}
+            value={icon.color}
+            renderFunction={(value) =>
+              setAttributes({ icon: { ...icon, color: value } })
+            }
+          />
+        </PanelBody>
+      )}
     </Fragment>
   );
 };
