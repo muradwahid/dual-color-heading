@@ -1,7 +1,7 @@
 {
   "name": "dual-color-heading",
   "version": "1.0.0",
-  "description": "Discription of Dual Color Heading",
+  "description": "Description of Dual Color Heading",
   "main": "index.js",
   "scripts": {
     "lint": "eslint src",

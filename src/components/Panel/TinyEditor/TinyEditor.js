@@ -44,14 +44,14 @@ export const TinyEditor = (props) => {
         <MediaUpload
           gallery={true}
           onSelect={(value) => setMedia(value)}
-          allowedTypes={['image/svg+xml']}
+          // allowedTypes={['image/svg+xml']}
           render={({ open }) => (
             <button className="custom-tinymce-button" onClick={open}>
               <span className="dashicons dashicons-admin-media"></span>
               Add Media
             </button>
           )}
-          multiple={false}
+          // multiple={false}
         />
       </MediaUploadCheck>
       <Editor

@@ -44,7 +44,7 @@ const ContentSettings = ({ attributes, setAttributes }) => {
         title={__('Heading', 'dual-color-heading')}
       >
         <PanelRow>
-          <Label className="">{__('HTML Tag', 'table-of-contents')}</Label>
+          <Label className="">{__('HTML Tag', 'dual-color-heading')}</Label>
           <SelectControl
             value={heading.tag}
             onChange={(value) =>
@@ -133,6 +133,7 @@ const ContentSettings = ({ attributes, setAttributes }) => {
             setAttributes({ subHeading: { ...subHeading, text: value } })
           }
         />
+        
       </PanelBody>
 
       <PanelBody

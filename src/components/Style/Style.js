@@ -39,12 +39,12 @@ const Style = ({ attributes }) => {
   return (
     <style>
       {`
-			${getTypoCSS('', heading.typhography)?.googleFontLink}
-			${getTypoCSS('', subHeading.typhography)?.googleFontLink}
+			${getTypoCSS("", heading.typhography)?.googleFontLink}
+			${getTypoCSS("", subHeading.typhography)?.googleFontLink}
 	  
 			${containerSl}{
 				display:grid;
-				${justifyItems('desktop')};
+				${justifyItems("desktop")};
 				${getBackgroundCSS(background)}
 				padding: ${getBoxCSS(padding.desktop)};
 				${getBorderCSS(border)}
@@ -56,16 +56,16 @@ const Style = ({ attributes }) => {
 			${sepWrapSl}{
 				gap: ${separator.distance};
 				justify-content:${
-          separator.alignment === 'left'
-            ? 'flex-start'
-            : separator.alignment === 'center'
-            ? 'center'
-            : 'flex-end'
+          separator.alignment === "left"
+            ? "flex-start"
+            : separator.alignment === "center"
+            ? "center"
+            : "flex-end"
         };
 				margin: ${getBoxCSS(separator.margin)};
 	  	}
 
-	  ${['left', 'right']
+	  ${["left", "right"]
       .map(
         (side) => `${mainSl} .separator-${side}{
 					width:${separator[side].width};
@@ -74,7 +74,7 @@ const Style = ({ attributes }) => {
 					border-radius: ${getBoxCSS(separator[side].bRadius)};
 	  		}`
       )
-      .join('')}
+      .join("")}
 
 			${sepWrapSl} svg{
 				color: ${separator.iconColor};
@@ -91,53 +91,57 @@ const Style = ({ attributes }) => {
 			${subContentSl}{
 				color:${subHeading.color} !important;
 				display:grid;
-				${justifyItems('desktop')};
+				${justifyItems("desktop")};
 			}
 			${
         getTypoCSS(
-          '.dch-dual-color-container>.dch-dual-color-subcontent',
+          ".dch-dual-color-container>.dch-dual-color-subcontent",
           subHeading.typography
         ).styles
       }
 
-			${['first', 'last']
+			${["first", "last"]
         .map(
           (part) => `${titleSl} .heading-${part}{
 						${
               heading[part].color
                 ? `color:${
-                    heading[part].colorType === 'solid' && heading[part].color
+                    heading[part].colorType === "solid" && heading[part].color
                   };`
                 : `background:${heading[part].gradient};`
             }
-						background:${heading[part].colorType === 'gradient' && heading[part].gradient};
+						background:${heading[part].colorType === "gradient" && heading[part].gradient};
 			${
-				heading[part].colorType === 'gradient' || heading[part].color.length===0 ?
-				`
+        heading[part].colorType === "gradient" ||
+        heading[part].color.length === 0
+          ? `
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent; 
-					`:""
-			}
-			}` ).join('')}
-			@media screen and (max-width: 768px) {
+					`
+          : ""
+      }
+			}`
+        )
+        .join("")}
+			@media only screen and (min-width:641px) and (max-width: 1024px) {
 				${containerSl}{
 					padding: ${getBoxCSS(padding.tablet)};
 					margin: ${getBoxCSS(margin.tablet)};
-					${justifyItems('tablet')};
+					${justifyItems("tablet")};
 				}
 				${subContentSl}{
-					${justifyItems('tablet')};
+					${justifyItems("tablet")};
 				}
 			}
 			
-			@media screen and (max-width: 576px) {
+			@media only screen and (max-width: 640px) {
 				${containerSl}{
 					padding: ${getBoxCSS(padding.mobile)};
 					margin: ${getBoxCSS(margin.mobile)};
-					${justifyItems('mobile')};
+					${justifyItems("mobile")};
 				}
 				${subContentSl}{
-					${justifyItems('mobile')};
+					${justifyItems("mobile")};
 				}
 			}
 	`}

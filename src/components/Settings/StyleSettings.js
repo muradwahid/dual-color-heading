@@ -1,13 +1,14 @@
 import {
-  __experimentalBoxControl as BoxControl,
   GradientPicker,
   PanelBody,
   PanelRow,
   RangeControl,
   __experimentalUnitControl as UnitControl,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { Fragment, useState } from 'react';
+} from "@wordpress/components";
+import { withSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
+import { Fragment, useState } from "react";
+import { } from "@wordpress/block-editor"
 import {
   BColor,
   Background,
@@ -16,18 +17,19 @@ import {
   Label,
   MultiShadowControl,
   Typography,
-} from '../../../../Components';
-import { bgTypes, gradients } from '../../../../Components/utils/options';
+} from "../../../../Components";
+import { bgTypes, gradients } from "../../../../Components/utils/options";
 import {
   aligns,
   borderRadiusResetValues,
   marginResetValues,
-} from '../../utils/options';
-import Device from '../Panel/Device/Device';
-import IncludeExClude from '../Panel/IncludeExClude/IncludeExClude';
-import PanelColorPicker from '../Panel/PanelColorPicker/PanelColorPicker';
-import PanelCustomColorControl from '../Panel/PanelCustomColorControl/PanelCustomColorControl';
-const StyleSettings = ({ attributes, setAttributes }) => {
+} from "../../utils/options";
+import { Device } from "../Panel/Device/Device";
+import IncludeExClude from "../Panel/IncludeExClude/IncludeExClude";
+import PanelColorPicker from "../Panel/PanelColorPicker/PanelColorPicker";
+import PanelCustomColorControl from "../Panel/PanelCustomColorControl/PanelCustomColorControl";
+import { BBoxControl } from "../Panel/BBoxControl/BBoxControl";
+const StyleSettings = ({ attributes, setAttributes, device }) => {
   const {
     alignment,
     background,
@@ -41,21 +43,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
     separator,
   } = attributes;
 
-  const [device, setDevice] = useState("desktop")
-  const [sepTab, setSepTab] = useState('left');
-
+  const [sepTab, setSepTab] = useState("left");
   return (
     <Fragment>
       <PanelBody
         initialOpen={true}
-        title={__('Wrapper/Container', 'dual-color-heading')}
+        title={__("Wrapper/Container", "dual-color-heading")}
       >
         <PanelRow style={{ position: "relative" }}>
-          <Label className="">{__('Alignment:', 'dual-color-heading')}</Label>
-          <Device
-            device={device}
-            onChange={(value) => setDevice(value)}
-          />
+          <Label className="">{__("Alignment:", "dual-color-heading")}</Label>
+          <Device />
         </PanelRow>
         <BtnGroup
           value={alignment[device]}
@@ -69,79 +66,79 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         />
 
         <Background
-          label={__('Background', 'dual-color-heading')}
+          label={__("Background", "dual-color-heading")}
           value={background}
           onChange={(val) => setAttributes({ background: val })}
         />
 
         <div
           style={{
-            marginTop: '20px',
-            position: 'relative',
+            marginTop: "20px",
+            position: "relative",
           }}
         >
-          <Device
-            device={device}
-            style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) => setDevice(value)}
-          />
-          <BoxControl
+          <Device style={{ position: "absolute", left: "60px" }} />
+          <BBoxControl
             label="Padding"
             values={padding[device]}
             resetValues={{
-              left: '0px',
-              right: '0px',
-              top: '0px',
-              bottom: '0px',
+              left: "0px",
+              right: "0px",
+              top: "0px",
+              bottom: "0px",
             }}
             onChange={(value) =>
               setAttributes({
                 padding: { ...padding, [device]: value },
               })
             }
-            units={__('px', 'em', '%')}
+            units={[
+              { label: "px", value: "px" },
+              { label: "%", value: "%" },
+              { label: "em", value: "em" },
+            ]}
           />
         </div>
 
         <div
           style={{
-            marginTop: '20px',
-            position: 'relative',
+            marginTop: "20px",
+            position: "relative",
           }}
         >
-          <Device
-            device={device}
-            style={{ position: 'absolute', left: '60px', top: '-3px' }}
-            onChange={(value) => setDevice(value)}
-          />
-          <BoxControl
+          <Device style={{ position: "absolute", left: "60px" }} />
+          <BBoxControl
             label="Margin"
             values={margin[device]}
             resetValues={{
-              left: '0px',
-              right: '0px',
-              top: '0px',
-              bottom: '0px',
+              left: "",
+              right: "",
+              top: "",
+              bottom: "",
             }}
             onChange={(value) =>
               setAttributes({
                 margin: { ...margin, [device]: value },
               })
             }
-            units={__('px', 'em', '%')}
+            units={[
+              { label: "px", value: "px" },
+              { label: "%", value: "%" },
+              { label: "em", value: "em" },
+            ]}
           />
         </div>
 
         <BorderControl
           className="mt20"
-          label={__('Border:', 'bplugins')}
+          label={__("Border:", "dual-color-heading")}
           value={border}
           onChange={(value) => setAttributes({ border: value })}
         />
 
         <MultiShadowControl
           className="mt20"
-          label={__('Shadow', 'dual-color-heading')}
+          label={__("Shadow", "dual-color-heading")}
           value={shadow}
           onChange={(value) => setAttributes({ shadow: value })}
         />
@@ -150,7 +147,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
       <PanelBody
         className="bPlPanelBody"
         initialOpen={false}
-        title={__('Heading', 'dual-color-heading')}
+        title={__("Heading", "dual-color-heading")}
       >
         <Typography
           className="mb10"
@@ -162,13 +159,13 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           }
         />
 
-        {['first', 'last'].map((part) => (
+        {["first", "last"].map((part) => (
           <>
             <PanelRow className="mt20">
               <Label className="">
                 {__(
                   `${part[0].toUpperCase() + part.substring(1)} Color Type:`,
-                  'bplugins'
+                  "dual-color-heading"
                 )}
               </Label>
               <BtnGroup
@@ -186,7 +183,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               />
             </PanelRow>
 
-            {'gradient' === heading[part].colorType ? (
+            {"gradient" === heading[part].colorType ? (
               <Fragment>
                 <GradientPicker
                   value={heading[part].gradient}
@@ -205,7 +202,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
               <BColor
                 label={__(
                   `${part[0].toUpperCase() + part.substring(1)} Color:`,
-                  'bplugins'
+                  "dual-color-heading"
                 )}
                 value={heading[part].color}
                 onChange={(val) =>
@@ -216,7 +213,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
                     },
                   })
                 }
-                defaultColor={'first' === part ? '#4527a4' : ''}
+                defaultColor={"first" === part ? "#4527a4" : ""}
               />
             )}
           </>
@@ -284,7 +281,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
       <PanelBody
         className="bPlPanelBody"
         initialOpen={false}
-        title={__('Sub Heading', 'dual-color-heading')}
+        title={__("Sub Heading", "dual-color-heading")}
       >
         <Typography
           className="mb10"
@@ -299,7 +296,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         <PanelColorPicker
           color={subHeading.color}
           value={subHeading.color}
-          label={__('Color', 'dual-color-heading')}
+          label={__("Color", "dual-color-heading")}
           renderFunction={(value) =>
             setAttributes({ subHeading: { ...subHeading, color: value } })
           }
@@ -307,12 +304,12 @@ const StyleSettings = ({ attributes, setAttributes }) => {
       </PanelBody>
 
       <PanelBody
-        className="bPlPanelBody"
+        // className="bPlPanelBody"
         initialOpen={false}
-        title={__('Separator', 'dual-color-heading')}
+        title={__("Separator", "dual-color-heading")}
       >
         <PanelRow>
-          <Label className="">{__('Alignment:', 'dual-color-heading')}</Label>
+          <Label className="">{__("Alignment:", "dual-color-heading")}</Label>
           <BtnGroup
             value={separator.alignment}
             onChange={(val) =>
@@ -326,7 +323,7 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         </PanelRow>
 
         <div className="mt20">
-          <BoxControl
+          <BBoxControl
             label="Margin"
             resetValues={marginResetValues}
             values={separator.margin}
@@ -338,11 +335,11 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           />
         </div>
 
-        {separator.type === 'line' && (
+        {separator.type === "line" && (
           <>
             <UnitControl
               className="mt20"
-              label={__('Distance Between Lines', 'dual-color-heading')}
+              label={__("Distance Between Lines", "dual-color-heading")}
               labelPosition="left"
               min={0}
               max={1000}
@@ -357,16 +354,16 @@ const StyleSettings = ({ attributes, setAttributes }) => {
 
             <br />
             <IncludeExClude
-              options={['left', 'right']}
+              options={["left", "right"]}
               value={sepTab}
               renderFunction={(value) => setSepTab(value)}
             />
 
             <UnitControl
-              label={__('Width', 'dual-color-heading')}
+              label={__("Width", "dual-color-heading")}
               labelPosition="left"
               min={0}
-              max={separator[sepTab].width.includes('%') ? 100 : 1000}
+              max={separator[sepTab].width.includes("%") ? 100 : 1000}
               step={1}
               value={separator[sepTab].width}
               onChange={(value) =>
@@ -381,10 +378,10 @@ const StyleSettings = ({ attributes, setAttributes }) => {
 
             <UnitControl
               className="mt20"
-              label={__('Height', 'dual-color-heading')}
+              label={__("Height", "dual-color-heading")}
               labelPosition="left"
               min={0}
-              max={separator[sepTab].height.includes('%') ? 100 : 1000}
+              max={separator[sepTab].height.includes("%") ? 100 : 1000}
               step={1}
               value={separator[sepTab].height}
               onChange={(value) =>
@@ -413,8 +410,8 @@ const StyleSettings = ({ attributes, setAttributes }) => {
             </div>
 
             <div className="mt20">
-              <BoxControl
-                label={__('Border Radius', 'dual-color-heading')}
+              <BBoxControl
+                label={__("Border Radius", "dual-color-heading")}
                 values={separator[sepTab].bRadius}
                 resetValues={borderRadiusResetValues}
                 onChange={(value) =>
@@ -430,12 +427,12 @@ const StyleSettings = ({ attributes, setAttributes }) => {
           </>
         )}
 
-        {separator.type === 'icon' && (
+        {separator.type === "icon" && (
           <>
             <RangeControl
               className="mt20"
               value={separator.iconSize}
-              label={__('Icon Size', 'dual-color-heading')}
+              label={__("Icon Size", "dual-color-heading")}
               min={0}
               max={300}
               step={1}
@@ -463,10 +460,10 @@ const StyleSettings = ({ attributes, setAttributes }) => {
         <PanelBody
           className="bPlPanelBody"
           initialOpen={false}
-          title={__('Icon Style', 'dual-color-heading')}
+          title={__("Icon Style", "dual-color-heading")}
         >
           <RangeControl
-            label={__('Icon Size', 'dual-color-heading')}
+            label={__("Icon Size", "dual-color-heading")}
             value={icon.size}
             min={10}
             max={550}
@@ -488,4 +485,10 @@ const StyleSettings = ({ attributes, setAttributes }) => {
   );
 };
 
-export default StyleSettings;
+export default withSelect((select) => {
+  return {
+    device: select("core/edit-post")
+      .__experimentalGetPreviewDeviceType()
+      ?.toLowerCase(),
+  };
+})(StyleSettings);

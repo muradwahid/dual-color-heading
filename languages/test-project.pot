@@ -1,4 +1,4 @@
-# Copyright (C) 2024 bPlugins LLC
+# Copyright (C) 2024 wpblocksguru
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-04T11:34:59+00:00\n"
+"POT-Creation-Date: 2024-05-13T05:42:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: dual-color-heading\n"
 
 #. Plugin Name of the plugin
@@ -23,11 +23,11 @@ msgid "Highlight content heading with different colors."
 msgstr ""
 
 #. Author of the plugin
-msgid "bPlugins LLC"
+msgid "wpblocksguru"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://bplugins.com"
+msgid "https://profiles.wordpress.org/wpblocksguru"
 msgstr ""
 
 #: dist/editor.js:10
@@ -54,6 +54,11 @@ msgstr ""
 #: dist/editor.js:10704
 #: dist/editor.js:11260
 msgid "Heading"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:10707
+msgid "HTML Tag"
 msgstr ""
 
 #: dist/editor.js:10
@@ -98,6 +103,11 @@ msgstr ""
 #: dist/editor.js:10
 #: dist/editor.js:11179
 msgid "Background"
+msgstr ""
+
+#: dist/editor.js:10
+#: dist/editor.js:11244
+msgid "Border:"
 msgstr ""
 
 #: dist/editor.js:10
